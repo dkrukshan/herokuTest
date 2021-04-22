@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Health Analysis</title>
@@ -7,41 +8,54 @@
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 </head>
 
 <body>
-<div class="login">
-    <h1>Health Analysis</h1>
-    <!-- Main Input For Receiving Query to our ML -->
-    <form>
-        <input type="text" name="height" placeholder="Height" required="required" id="Height"/>
-        <input type="text" name="weight" placeholder="Weight" required="required" id="Weight"/>
-        <input type="text" name="heart_rate" placeholder="Heart Rate" required="required" id="Heart"/>
-        <input type="text" name="stress_level" placeholder="Stress Level" required="required" id="Stress"/>
-        <input type="text" name="sleep_score" placeholder="Sleep Score" required="required" id="Sleep"/>
-        <input type="text" name="step_count" placeholder="Step Count" required="required" id="Step"/>
-        <button type="button" class="btn btn-primary btn-block btn-large" id="btnsubmit">Predict</button>
-    </form>
-    <br>
-        <label id="lbl_heart_state"></label>
-        <label id="lbl_stress_state"></label>
-        <label id="lbl_sleep_state"></label>
-        <label id="lbl_step_state"></label>
-        <label id="lbl_bmi_state"></label>
-    <br>
-    {{ prediction_text }}
+    <div class="login">
+        <br>
+        <h1>Health Analysis</h1>
+        <form>
+            <label>Height (cm):</label>
+            <input type="text" name="height" placeholder="Height" required="required" id="Height" /><br>
 
-</div>
+            <label>Weight (kg):</label>
+            <input type="text" name="weight" placeholder="Weight" required="required" id="Weight" /><br>
+
+            <label>Heart Rate (bpm):</label>
+            <input type="text" name="heart_rate" placeholder="Heart Rate" required="required" id="Heart" /><br>
+
+            <label>Stress Level (%):</label>
+            <input type="text" name="stress_level" placeholder="Stress Level" required="required" id="Stress" /><br>
+
+            <label>Sleep Score (%):</label>
+            <input type="text" name="sleep_score" placeholder="Sleep Score" required="required" id="Sleep" /><br>
+
+            <label>Step Count:</label>
+            <input type="text" name="step_count" placeholder="Step Count" required="required" id="Step" /><br><br>
+
+            <button type="button" class="btn btn-primary btn-block btn-large" id="btnsubmit">Predict</button>
+        </form>
+        <br>
+        <label id="lbl_heart_state">Heart State</label><br>
+        <label id="lbl_stress_state">Stress State</label><br>
+        <label id="lbl_sleep_state">Sleep State</label><br>
+        <label id="lbl_step_state">Step State</label><br>
+        <label id="lbl_bmi_state">BMI State</label><br>
+        <label id="lbl_medical_state">Medical State</label><br>
+        <br>
+
+    </div>
 </body>
+
 </html>
 
 <script>
-    $(document).ready(function () {
-        $('#btnsubmit').click(function () {
-//             document.getElementById("output").value = 'clicked';
+    $(document).ready(function() {
+        $('#btnsubmit').click(function() {
+            //             document.getElementById("output").value = 'clicked';
             var height = $('#Height').val();
             var weight = $('#Weight').val();
             var heart_rate = $('#Heart').val();
@@ -60,7 +74,7 @@
                     step: Step
                 },
                 dataType: "JSON",
-                success: function (data) {
+                success: function(data) {
                     var heart_state = data.data[0].heart_state;
                     var stress_state = data.data[1].stress_state;
                     var sleep_state = data.data[2].sleep_state;
@@ -68,10 +82,10 @@
                     var bmi_state = data.data[4].bmi_state;
 
                     var heart_state_response = 'Heart State: ' + heart_state;
-                    var stress_state_response = 'Stress State: '+ stress_state;
-                    var sleep_state_response = 'Sleep State: '+ sleep_state;
-                    var step_state_response = 'Step State: '+ step_state;
-                    var bmi_state_response = 'BMI State: '+ bmi_state;
+                    var stress_state_response = 'Stress State: ' + stress_state;
+                    var sleep_state_response = 'Sleep State: ' + sleep_state;
+                    var step_state_response = 'Step State: ' + step_state;
+                    var bmi_state_response = 'BMI State: ' + bmi_state;
 
                     document.getElementById('lbl_heart_state').innerHTML = heart_state_response;
                     document.getElementById('lbl_stress_state').innerHTML = stress_state_response;
