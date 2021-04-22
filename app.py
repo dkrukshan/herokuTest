@@ -12,7 +12,7 @@ bmi_model = pickle.load(open('bmi_model.pkl', 'rb'))
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.php')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -20,7 +20,7 @@ def predict():
     final_features = [np.array(int_features)]
     prediction = model.predict(final_features)
     output = round(prediction[0], 2)
-    return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
+    return render_template('index.php', prediction_text='Employee Salary should be $ {}'.format(output))
 
 @app.route('/prd_api', methods=['POST'])
 def prd_api():
@@ -60,10 +60,10 @@ def health_check_api():
     # list.insert(4, bmi_state_prediction[0])
 
     data = [{k: v} for k, v in
-            zip(["heart state", "stress state", "sleep state", "step state", "bmi state"],
+            zip(["heart_state", "stress_state", "sleep_state", "step_state", "bmi_state"],
                 [heart_state_prediction[0], stress_state_prediction[0], sleep_state_prediction[0],
                  step_state_prediction[0], bmi_state_prediction[0]])]
-    return jsonify({"health status": data})
+    return jsonify({"data": data})
     # return jsonify(list)
 
 if __name__ == "__main__":

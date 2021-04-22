@@ -41,6 +41,11 @@ body {
 
 .login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
 
+label {
+    display: block;
+    text-align: left;
+}
+
 input { 
 	width: 100%; 
 	margin-bottom: 10px; 
