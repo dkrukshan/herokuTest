@@ -1,35 +1,98 @@
 <!DOCTYPE html>
-<html >
+<html>
 <!--From https://codepen.io/frytyler/pen/EGdtg-->
 <head>
-  <meta charset="UTF-8">
-  <title>Health Condition Analysis</title><link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>Health Condition Analysis</title>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+{#    <script>#}
+{#        function increaseSize() {#}
+{#            var compare = document.getElementById('btnmax').textContent || elem.innerText;#}
+{#            if (compare === "Max") {#}
+{#                document.getElementById('song').style.height = '1900px';#}
+{#                document.getElementById('sinhalasong').style.height = '1900px';#}
+{#                document.getElementById('btnmax').firstChild.data = "Min";#}
+{#            } else if (compare === "Min") {#}
+{#                document.getElementById('song').style.height = '326px';#}
+{#                document.getElementById('sinhalasong').style.height = '326px';#}
+{#                document.getElementById('btnmax').firstChild.data = "Max";#}
+{#            }#}
+{#        }#}
+{#    </script>#}
+
 </head>
 
 <body>
- <div class="login">
-	<h1>Health Condition Analysis</h1>
+<div class="login">
+    <h1>Health Condition Analysis</h1>
 
-     <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('predict')}}"method="post">
-    	<input type="text" name="height" placeholder="Height" required="required" />
-        <input type="text" name="weight" placeholder="Weight" required="required" />
-		<input type="text" name="heart_rate" placeholder="Heart Rate" required="required" />
-		<input type="text" name="stress_level" placeholder="Stress Level" required="required" />
-		<input type="text" name="sleep_score" placeholder="Sleep Score" required="required" />
-		<input type="text" name="step_count" placeholder="Step Count" required="required" />
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}" method="post">
+        <input type="text" name="height" placeholder="Height" required="required" id="Height"/>
+        <input type="text" name="weight" placeholder="Weight" required="required" id="Weight"/>
+        <input type="text" name="heart_rate" placeholder="Heart Rate" required="required" id="Heart"/>
+        <input type="text" name="stress_level" placeholder="Stress Level" required="required" id="Stress"/>
+        <input type="text" name="sleep_score" placeholder="Sleep Score" required="required" id="Sleep"/>
+        <input type="text" name="step_count" placeholder="Step Count" required="required" id="Step"/>
+
+        <input type="text" name="output" placeholder="output" id="output"/>
+        <button type="button" class="btn btn-primary btn-block btn-large" id="btnsubmit">Predict</button>
     </form>
-   <br>
-   <br>
-   {{ prediction_text }}
+    <br>
+    <br>
+    {{ prediction_text }}
 
- </div>
+</div>
 
 
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+        $('#btnsubmit').click(function () {
+            var height = $('#Height').val();
+            var weight = $('#Weight').val();
+            var heart_rate = $('#Heart').val();
+            var stress = $('#Stress').val();
+            var Sleep = $('#Sleep').val();
+            var Step = $('#Step').val();
+            $.ajax({
+                url: "https://healthpredictapp.herokuapp.com/health_check_api",
+                method: "POST",
+                data: {
+                    height: height,
+                    weight: weight,
+                    heart_rate: heart_rate,
+                    stress: stress,
+                    Sleep: Sleep,
+                    Step: Step
+                },
+                dataType: "JSON",
+                success: function (ndata) {
+                    alert(ndata.respon);
+                    document.getElementById("output").value = ndata.respon;
+                    // document.getElementById("artist").value = '';
+                    // document.getElementById("title").value = '';
+                    // document.getElementById("song").value = '';
+                    // document.getElementById("duration").value = '180';
+                    // document.getElementById("genre").value = 'Not Defined';
+                    // document.getElementById("speed").value = '40';
+                    // document.getElementById("year").value = 'Not Defined';
+                    // document.getElementById("lyrics").value = 'Not Defined';
+                    // document.getElementById("audioURL").value = '';
+                    // document.getElementById("sinhalasong").value = '';
+                    // document.getElementById("theme").value = 'Not Defined';
+                    // document.getElementById("music").value = 'Not Defined';
+                    // document.getElementById("contributor").value = 'Dinith Rukshan';
+                    // document.getElementById("lastedit").value = 'Dinith Rukshan';
+                }
+            })
+        });
+    });
+</script>
