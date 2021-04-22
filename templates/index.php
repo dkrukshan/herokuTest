@@ -10,7 +10,6 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
 </head>
 
 <body>
@@ -39,12 +38,12 @@
             <button type="button" class="btn btn-primary btn-block btn-large" id="btnsubmit">Predict</button>
         </form>
         <br>
-        <label id="lbl_heart_state">Heart State</label><br>
-        <label id="lbl_stress_state">Stress State</label><br>
-        <label id="lbl_sleep_state">Sleep State</label><br>
-        <label id="lbl_step_state">Step State</label><br>
-        <label id="lbl_bmi_state">BMI State</label><br>
-        <label id="lbl_medical_state">Medical State</label><br>
+        <label id="lbl_heart_state" class="label2">Heart State</label><br>
+        <label id="lbl_stress_state" class="label2">Stress State</label><br>
+        <label id="lbl_sleep_state" class="label2">Sleep State</label><br>
+        <label id="lbl_step_state" class="label2">Step State</label><br>
+        <label id="lbl_bmi_state" class="label2">BMI State</label><br>
+        <label id="lbl_medical_state" class="label2">Medical State</label><br>
         <br>
 
     </div>

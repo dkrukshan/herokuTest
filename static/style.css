@@ -44,6 +44,13 @@ label {
     text-align: left;
 }
 
+.label2 {
+    font-size: 14px;
+    display: inline-block;
+    width: 250px;
+    text-align: justify;
+}
+
 input {
     width: 50%;
     margin-bottom: 10px;
@@ -165,7 +172,7 @@ input:focus {
 }
 
 .btn-block {
-    width: 60%;
+    width: 88%;
     display: inline-block;
     margin: 0 auto;
 }
